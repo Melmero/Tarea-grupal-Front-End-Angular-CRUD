@@ -15,7 +15,7 @@ import { ModificarClienteComponent } from '../modificar-cliente/modificar-client
 export class ClientesComponent implements OnInit {
   filtro: any;
   dataSource: any = [];
-  displayedColumns: string[] = ['cedula','nombres', 'apellidos','direccion','edad']
+  displayedColumns: string[] = ['cedula','nombres', 'apellidos','direccion','edad','accion']
   
   data = [{
         cedula: '0151245245',      
