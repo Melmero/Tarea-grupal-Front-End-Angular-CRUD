@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router} from '@angular/router';
 import { AgregarClienteComponent } from '../agregar-cliente/agregar-cliente.component';
 import { ClienteInterface } from '../interfaces/ClienteInterface';
+import { ModificarClienteComponent } from '../modificar-cliente/modificar-cliente.component';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { ClienteInterface } from '../interfaces/ClienteInterface';
   styleUrls: ['./clientes.component.css']
 })
 export class ClientesComponent implements OnInit {
-
+  filtro: any;
   dataSource: any = [];
   displayedColumns: string[] = ['cedula','nombres', 'apellidos','direccion','edad']
   
@@ -66,4 +67,13 @@ export class ClientesComponent implements OnInit {
     })
   }
 
+  openDialogModificar(){
+    this.dialog.open(ModificarClienteComponent, {
+      width: '50%',
+    })
+  }
+
+  filtrar(){
+    this.dataSource.filter = this.filtro;
+  }
 }

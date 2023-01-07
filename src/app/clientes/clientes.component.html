@@ -1,7 +1,13 @@
-<br>
-<button mat-raised-button color="accent" (click)="openDialogAgregar()"> Agregar</button>
-<br><br>
-
+<div class="header-table">
+    <button mat-raised-button color="accent" (click)="openDialogAgregar()"> Agregar</button>
+    <div>
+        Ingrese lo que desea buscar:
+        <mat-form-field class="campos-field">
+            <input matInput placeholder="Filtro" [(ngModel)]='filtro'>
+        </mat-form-field>
+    </div>
+</div>
+{{filtrar()}}
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="cedula">
         <th mat-header-cell *matHeaderCellDef> Cédula </th>
@@ -30,9 +36,5 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-<br>
-<button mat-raised-button color="accent" (click)="openDialogAgregar()"> Modificar</button>
-<br><br>
 
 </table>
