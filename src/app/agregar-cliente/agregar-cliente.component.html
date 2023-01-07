@@ -1,9 +1,8 @@
-<mat-card> 
-    <div style="text-align:center;">
+<mat-card>
+    <div style="text-align: center; margin-bottom: 1em;">
         <mat-card-title>Nuevo Cliente</mat-card-title>
-    </div>   
-    <br>
-    <form [formGroup]="usuarioNuevo">
+    </div>
+    <form [formGroup]="usuarioNuevo" class="form-fields">
         <mat-form-field class="campos-field">
             <input matInput placeholder="Cedula" formControlName="cedula">
         </mat-form-field>
@@ -23,9 +22,13 @@
         <mat-form-field class="campos-field">
             <input matInput placeholder="Edad" formControlName="edad">
         </mat-form-field>
-
-        <button mat-raised-button [disabled] = "!usuarioNuevo.valid" (click)="onSubmit()">Aceptar</button>  
-        <button mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>      
     </form>
-    
+    <div class="form-buttons">
+        <button mat-raised-button color="primary" [disabled]="!usuarioNuevo.valid" (click)="onSubmit()">
+            Aceptar
+        </button>
+        <button mat-raised-button color="accent" (click)="cancelar()">
+            Cancelar
+        </button>
+    </div>
 </mat-card>
