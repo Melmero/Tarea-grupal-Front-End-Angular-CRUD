@@ -4,24 +4,24 @@
     </div>
     <form [formGroup]="usuarioModificado" class="form-fields">
         <mat-form-field class="campos-field">
-            <input matInput placeholder="Cedula" formControlName="cedula">
+            <input matInput placeholder="Cedula" formControlName="cedula" [(ngModel)]="data.client.cedula">
         </mat-form-field>
 
         <mat-form-field class="campos-field">
-            <input matInput placeholder="Nombres" formControlName="nombres">
+            <input matInput placeholder="Nombres" formControlName="nombres" [(ngModel)]="data.client.nombres">
         </mat-form-field>
 
         <mat-form-field class="campos-field">
-            <input matInput placeholder="Apellidos" formControlName="apellidos">
+            <input matInput placeholder="Apellidos" formControlName="apellidos" [(ngModel)]="data.client.apellidos">
         </mat-form-field>
 
         <mat-form-field class="campos-field">
-            <input matInput placeholder="Direccion" formControlName="direccion">
+            <input matInput placeholder="Direccion" formControlName="direccion" [(ngModel)]="data.client.direccion">
         </mat-form-field>
 
         <mat-form-field class="campos-field">
-            <input matInput placeholder="Edad" formControlName="edad">
-        </mat-form-field>        
+            <input matInput placeholder="Edad" formControlName="edad" [(ngModel)]="data.client.edad">
+        </mat-form-field>
     </form>
     <div class="form-buttons">
         <button mat-raised-button color="primary" [disabled]="!usuarioModificado.valid" (click)="onSubmit()">

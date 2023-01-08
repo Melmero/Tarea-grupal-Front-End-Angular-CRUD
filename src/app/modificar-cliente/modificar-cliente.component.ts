@@ -1,7 +1,8 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NavigationExtras, Router } from '@angular/router';
+import { ClienteInterface } from '../interfaces/ClienteInterface';
 
 @Component({
   selector: 'app-modificar-cliente',
@@ -9,25 +10,26 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./modificar-cliente.component.css']
 })
 export class ModificarClienteComponent implements OnInit {
-  constructor(private router: Router, private dialogRef:MatDialogRef<ModificarClienteComponent>)
-  { }
+  dataSource: any = [];
+  constructor(private router: Router, private dialogRef: MatDialogRef<ModificarClienteComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit():void{
+  ngOnInit(): void {
+    console.log(this.data);
   }
 
   usuarioModificado = new FormGroup({
-    cedula: new FormControl('',Validators.required),
-    nombres: new FormControl('',Validators.required),
-    apellidos: new FormControl('',Validators.required),
-    direccion: new FormControl('',Validators.required),
-    edad: new FormControl('',Validators.required)
+    cedula: new FormControl('', Validators.required),
+    nombres: new FormControl('', Validators.required),
+    apellidos: new FormControl('', Validators.required),
+    direccion: new FormControl('', Validators.required),
+    edad: new FormControl('', Validators.required)
   })
 
-  onSubmit(){
-
+  onSubmit() {
+    
   }
 
-  cancelar(){
+  cancelar() {
     this.dialogRef.close();
   }
 }
