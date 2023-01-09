@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NavigationExtras, Router } from '@angular/router';
@@ -9,25 +9,29 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./agregar-cliente.component.css']
 })
 export class AgregarClienteComponent implements OnInit {
+  event: boolean;
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<AgregarClienteComponent>) { }
+  constructor(private router: Router, private dialogRef: MatDialogRef<AgregarClienteComponent>) {
+    this.event = false;
+  }
+
+  @HostListener('document:click', ['$event.target.id'])
+  DocumentClick() {
+    this.event = true;
+  }
 
   ngOnInit(): void {
   }
 
-  //navigationExtras: NavigationExtras={};
-
   usuarioNuevo = new FormGroup({
-    cedula: new FormControl('',Validators.required),
-    nombres: new FormControl('',Validators.required),
+    cedula: new FormControl('', Validators.required),
+    nombres: new FormControl('', Validators.required),
     apellidos: new FormControl('', Validators.required),
     direccion: new FormControl('', Validators.required),
     edad: new FormControl('', Validators.required)
   })
 
-  
-  onSubmit()
-  {
+  onSubmit() {
     let objToSend: NavigationExtras = {
       queryParams: {
         cedula: this.usuarioNuevo.value.cedula,
@@ -37,22 +41,20 @@ export class AgregarClienteComponent implements OnInit {
         edad: this.usuarioNuevo.value.edad
       },
       skipLocationChange: false,
-      fragment: 'top' 
+      fragment: 'top'
     };
 
-    this.dialogRef.close(); 
+    this.dialogRef.close();
     this.redirectTo('/cliente', objToSend);
-
   }
 
-  redirectTo(uri:string, objToSend:NavigationExtras){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-    this.router.navigate([uri],{ state: { datosCliente: objToSend}}));
+  redirectTo(uri: string, objToSend: NavigationExtras) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate([uri], { state: { datosCliente: objToSend, eventoBoton: this.event } }));
   }
 
-  cancelar()
-  {
-    this.dialogRef.close(); 
+  cancelar() {
+    this.dialogRef.close();
   }
 
 }

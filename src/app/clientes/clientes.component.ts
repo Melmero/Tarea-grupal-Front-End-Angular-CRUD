@@ -40,24 +40,36 @@ export class ClientesComponent implements OnInit {
   }
   ];
 
-  nuevoCliente: any;
+  cliente: any;
   nav: any;
 
   constructor(private router: Router, private dialog: MatDialog) {
 
     this.nav = this.router.getCurrentNavigation();
-    this.nuevoCliente = this.nav.extras.state;
+    this.cliente = this.nav.extras.state;
 
-    if (this.nuevoCliente != null) {
-      console.log(this.nuevoCliente.datosCliente.queryParams);
-      this.data.push(this.nuevoCliente.datosCliente.queryParams);
-    }
-
-  };
+    if (this.cliente != null) {
+      if (this.cliente.datosCliente != null) {
+        this.data.push(this.cliente.datosCliente.queryParams);
+      }
+      if (this.cliente.datosViejos != null) {
+        var usuarioModificado = this.cliente.datosViejos;
+        var u2 = this.cliente.datosNuevos.queryParams;
+        this.data.forEach(function (cliente) {
+          if (cliente.cedula === u2.cedula) {
+            cliente.cedula = usuarioModificado.cedula;
+            cliente.nombres = usuarioModificado.nombres;
+            cliente.apellidos = usuarioModificado.apellidos;
+            cliente.direccion = usuarioModificado.direccion;
+            cliente.edad = usuarioModificado.edad;
+          }
+        });
+      }
+    };
+  }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<ClienteInterface>(this.data as ClienteInterface[]);
-    console.log(this.data);
   }
 
   openDialogAgregar() {
@@ -68,8 +80,8 @@ export class ClientesComponent implements OnInit {
 
   openDialogModificar(element: ClienteInterface) {
     this.dialog.open(ModificarClienteComponent, {
-      width: '50%', data: { client: element, tabla: this.dataSource }
-    })
+      width: '50%', data: { client: element, tabla: this.data }
+    });
   }
 
   filtrar() {
